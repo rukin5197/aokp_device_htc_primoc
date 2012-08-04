@@ -50,6 +50,8 @@ TARGET_PROVIDES_LIBLIGHTS := true
 BOARD_HAVE_HTC_FFC := true
 BOARD_USE_REVERSE_FFC := true
 
+TARGET_QCOM_HDMI_OUT := false
+
 # Wifi related defines
 WIFI_BAND                        := 802_11_ABG
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
@@ -99,6 +101,11 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_otg/msm_hsusb/gadget/lun0/file
 
 # Webkit
-ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 DYNAMIC_SHARED_LIBV8SO := true
+
+# Testing
+#ENABLE_WEBGL := true
+TARGET_USES_OVERLAY := false
+TARGET_COMPOSITION_BYPASS := true
+TARGET_NO_BYPASS_CROPPING := true
