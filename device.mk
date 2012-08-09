@@ -18,94 +18,80 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # The gps config appropriate for this device
 
-PRODUCT_COPY_FILES += device/htc/primoc/prebuilt/etc/gps.conf:system/etc/gps.conf
+PRODUCT_COPY_FILES += device/htc/primou/gps.conf:system/etc/gps.conf
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/root/init.primoc.rc:root/init.primoc.rc \
-    device/htc/primoc/prebuilt/root/init.usb.rc:root/init.usb.rc \
-    device/htc/primoc/prebuilt/root/init.rc:root/init.rc \
-    device/htc/primoc/prebuilt/root/ueventd.rc:root/ueventd.rc \
-    device/htc/primoc/prebuilt/root/ueventd.primoc.rc:root/ueventd.primoc.rc
+    device/htc/primou/init.primou.rc:root/init.primou.rc \
+    device/htc/primou/ueventd.primou.rc:root/ueventd.primou.rc
 
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
+    frameworks/base/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
 ## (2) Also get non-open-source GSM-specific aspects if available
-$(call inherit-product-if-exists, vendor/htc/primoc/primoc-vendor.mk)
+$(call inherit-product-if-exists, vendor/htc/primou/primou-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1 \
     ro.com.google.gmsversion=2.3_r3 \
+    ro.setupwizard.enable_bypass=1 \
     dalvik.vm.lockprof.threshold=500 \
-    dalvik.vm.dexopt-flags=m=y \
-    ro.sf.lcd_density=240
-	
-# Carrier Info
-CDMA_GOOGLE_BASE := android-sprint-us
-CDMA_CARRIER_ALPHA := Virgin_Mobile
-CDMA_CARRIER_NUMERIC := 311490
-
-# Property Overides for carrier
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=$(CDMA_GOOGLE_BASE) \
-    ro.cdma.home.operator.alpha=$(CDMA_CARRIER_ALPHA) \
-    ro.cdma.home.operator.numeric=$(CDMA_CARRIER_NUMERIC) \
-    gsm.sim.operator.alpha=$(CDMA_CARRIER_ALPHA) \
-    gsm.sim.operator.numeric=$(CDMA_CARRIER_NUMERIC) \
-    gsm.operator.alpha=$(CDMA_CARRIER_ALPHA) \
-    gsm.operator.numeric=$(CDMA_CARRIER_NUMERIC)
+    dalvik.vm.dexopt-flags=m=y
 
 # Override /proc/sys/vm/dirty_ratio on UMS
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=20
 
-DEVICE_PACKAGE_OVERLAYS += device/htc/primoc/overlay
+DEVICE_PACKAGE_OVERLAYS += device/htc/primou/overlay
+
+# gsm config xml file
+PRODUCT_COPY_FILES += \
+    device/htc/primou/voicemail-conf.xml:system/etc/voicemail-conf.xml
 
 # GPS / Lights / Sensors
 PRODUCT_PACKAGES += \
-    gps.primoc \
-    lights.primoc \
-    sensors.primoc
+    gps.primou \
+    lights.primou \
+    sensors.primou
 
-# Additional packages
+	# Additional packages
 PRODUCT_PACKAGES += \
     GooManager \
-    PopNetwork
-
+   	
 # idc files
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/usr/idc/himax-touchscreen.idc:system/usr/idc/himax-touchscreen.idc \
-    device/htc/primoc/prebuilt/usr/idc/primoc-keypad.idc:system/usr/idc/primoc-keypad.idc \
-    device/htc/primoc/prebuilt/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
-    device/htc/primoc/prebuilt/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
-    device/htc/primoc/prebuilt/usr/idc/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc \
-    device/htc/primoc/prebuilt/usr/keychars/Generic.kcm:system/usr/keychars/Generic.kcm \
-    device/htc/primoc/prebuilt/usr/keychars/qwerty.kcm:system/usr/keychars/qwerty.kcm \
-    device/htc/primoc/prebuilt/usr/keychars/qwerty2.kcm:system/usr/keychars/qwerty2.kcm \
-    device/htc/primoc/prebuilt/usr/keychars/Virtual.kcm:system/usr/keychars/Virtual.kcm \
-    device/htc/primoc/prebuilt/usr/keylayout/himax-touchscreen.kl:system/usr/keylayout/himax-touchscreen.kl \
-    device/htc/primoc/prebuilt/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-    device/htc/primoc/prebuilt/usr/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-    device/htc/primoc/prebuilt/usr/keylayout/primoc-keypad.kl:system/usr/keylayout/primoc-keypad.kl \
-    device/htc/primoc/prebuilt/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
-    device/htc/primoc/prebuilt/usr/keylayout/synaptics-rmi-touchscreen.kl:system/usr/keylayout/synaptics-rmi-touchscreen.kl
+    device/htc/primou/prebuilt/usr/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
+    device/htc/primou/prebuilt/usr/idc/primou-keypad.idc:system/usr/idc/primou-keypad.idc \
+    device/htc/primou/prebuilt/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
+    device/htc/primou/prebuilt/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
+    device/htc/primou/prebuilt/usr/idc/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc \
+    device/htc/primou/prebuilt/usr/keychars/Generic.kcm:system/usr/keychars/Generic.kcm \
+    device/htc/primou/prebuilt/usr/keychars/qwerty.kcm:system/usr/keychars/qwerty.kcm \
+    device/htc/primou/prebuilt/usr/keychars/qwerty2.kcm:system/usr/keychars/qwerty2.kcm \
+    device/htc/primou/prebuilt/usr/keychars/Virtual.kcm:system/usr/keychars/Virtual.kcm \
+    device/htc/primou/prebuilt/usr/keylayout/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
+    device/htc/primou/prebuilt/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    device/htc/primou/prebuilt/usr/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+    device/htc/primou/prebuilt/usr/keylayout/primou-keypad.kl:system/usr/keylayout/primou-keypad.kl \
+    device/htc/primou/prebuilt/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
+    device/htc/primou/prebuilt/usr/keylayout/synaptics-rmi-touchscreen.kl:system/usr/keylayout/synaptics-rmi-touchscreen.kl
 
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/etc/vold.fstab:system/etc/vold.fstab
+    device/htc/primou/prebuilt/etc/vold.fstab:system/etc/vold.fstab
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml	
+    device/htc/primou/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml	
 
 # Kernel modules
 #PRODUCT_COPY_FILES += \
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/htc/primoc/prebuilt/root/kernel
+LOCAL_KERNEL := device/htc/primou/prebuilt/root/kernel
 else
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
@@ -114,7 +100,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/modules/bcmdhd.ko:system/lib/modules/bcmdhd.ko
+    device/htc/primou/prebuilt/modules/bcmdhd.ko:system/lib/modules/bcmdhd.ko
 
 
 # stuff common to all HTC phones
@@ -126,13 +112,13 @@ $(call inherit-product, build/target/product/full_base.mk)
 $(call inherit-product, device/htc/msm7x30-common/msm7x30.mk)
 
 # HTC Audio
-$(call inherit-product, device/htc/primoc/media_a1026.mk)
-$(call inherit-product, device/htc/primoc/media_htcaudio.mk)
+$(call inherit-product, device/htc/primou/media_a1026.mk)
+$(call inherit-product, device/htc/primou/media_htcaudio.mk)
 
 $(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Goo updater app
 PRODUCT_PROPERTY_OVERRIDES += \
-ro.goo.developerid=jmz \
-ro.goo.rom=cm9primoc \
+ro.goo.developerid=Lloir \
+ro.goo.rom=cm9primou \
 ro.goo.version=6

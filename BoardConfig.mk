@@ -29,44 +29,23 @@ USE_CAMERA_STUB := true
 -include device/htc/msm7x30-common/BoardConfigCommon.mk
 
 # inherit from the proprietary version
--include vendor/htc/primoc/BoardConfigVendor.mk
+-include vendor/htc/primou/BoardConfigVendor.mk
 
-TARGET_BOOTLOADER_BOARD_NAME := primoc
+TARGET_BOOTLOADER_BOARD_NAME := primou
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=primoc no_console_suspend=1
-BOARD_KERNEL_BASE := 0x14300000
+BOARD_KERNEL_CMDLINE := no_console_suspend=1
+BOARD_KERNEL_RECOVERY_CMDLINE := $(BOARD_KERNEL_CMDLINE) console=ttyHSL0,115200,n8 androidboot.hardware=primou msmsdcc_power_gpio=88
+BOARD_KERNEL_BASE := 0x13F00000
 BOARD_KERNEL_PAGE_SIZE := 4096
 
-TARGET_USE_SCORPION_BIONIC_OPTIMIZATION := true
-TARGET_USE_SCORPION_PLD_SET := true
-TARGET_SCORPION_BIONIC_PLDOFFS := 6
-TARGET_SCORPION_BIONIC_PLDSIZE := 128
-
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := primoc
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := primou
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
-
-TARGET_PROVIDES_LIBLIGHTS := true
 
 BOARD_HAVE_HTC_FFC := true
 BOARD_USE_REVERSE_FFC := true
 
-TARGET_QCOM_HDMI_OUT := false
-TARGET_USES_OVERLAY := false
-TARGET_COMPOSITION_BYPASS := true
-TARGET_NO_BYPASS_CROPPING := true
-
-# Wifi related defines
-WIFI_BAND                        := 802_11_ABG
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
-BOARD_WLAN_DEVICE                := bcmdhd
-WIFI_DRIVER_FW_PATH_STA          := "/system/etc/firmware/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/system/etc/firmware/fw_bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/firmware/fw_bcmdhd_p2p.bin"
-WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
+# Workaround for primou's broken overlay scaling
+#BOARD_OVERLAY_MINIFICATION_LIMIT := 2
 
 # cat /proc/emmc
 #dev:        size     erasesize name
@@ -85,11 +64,25 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 1232072704
 BOARD_BOOTIMAGE_PARTITION_SIZE := 4194304
 BOARD_FLASH_BLOCK_SIZE := 262144
 
+# Wifi related defines
+WIFI_BAND                        := 802_11_ABG
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
+BOARD_WLAN_DEVICE                := bcmdhd
+WIFI_DRIVER_FW_PATH_STA          := "/system/etc/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/system/etc/firmware/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/firmware/fw_bcmdhd_p2p.bin"
+WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
+
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
 
 TARGET_KERNEL_SOURCE := kernel/htc/msm7x30
-TARGET_KERNEL_CONFIG := cyanogen_primoc_defconfig
-TARGET_PREBUILT_KERNEL := device/htc/primoc/prebuilt/root/kernel
+TARGET_KERNEL_CONFIG := cyanogen_primou_defconfig
+TARGET_PREBUILT_KERNEL := device/htc/primou/prebuilt/kernel
+TARGET_USES_OVERLAY := false
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -102,10 +95,3 @@ BOARD_HAS_NO_MISC_PARTITION := false
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_otg/msm_hsusb/gadget/lun0/file
-
-# Webkit
-TARGET_FORCE_CPU_UPLOAD := true
-DYNAMIC_SHARED_LIBV8SO := true
-
-# Testing
-#ENABLE_WEBGL := true
