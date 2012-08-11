@@ -161,6 +161,9 @@
     <string-array translatable="false" name="config_tether_bluetooth_regexs">
         <item>"bnep\\d"</item>
     </string-array>
+	
+	<!-- Fix bluetooth staying on all the time draining battery -->
+	<bool name="config_bluetooth_adapter_quick_switch">false</bool>
 
     <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
     <!-- Common options are [1, 4] for TYPE_WIFI and TYPE_MOBILE_DUN or
