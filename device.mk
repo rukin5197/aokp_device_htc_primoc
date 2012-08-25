@@ -24,9 +24,7 @@ PRODUCT_COPY_FILES += device/htc/primoc/prebuilt/etc/gps.conf:system/etc/gps.con
 
 PRODUCT_COPY_FILES += \
     device/htc/primoc/prebuilt/root/init.primoc.rc:root/init.primoc.rc \
-    device/htc/primoc/prebuilt/root/init.usb.rc:root/init.usb.rc \
-    device/htc/primoc/prebuilt/root/init.rc:root/init.rc \
-    device/htc/primoc/prebuilt/root/ueventd.rc:root/ueventd.rc \
+    device/htc/primoc/prebuilt/root/init.primoc.usb.rc:root/init.primoc.usb.rc \
     device/htc/primoc/prebuilt/root/ueventd.primoc.rc:root/ueventd.primoc.rc
 
 PRODUCT_COPY_FILES += \
@@ -42,7 +40,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.gmsversion=2.3_r3 \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y \
-    ro.sf.lcd_density=240
+    ro.sf.lcd_density=220
 	
 # Carrier Info
 CDMA_GOOGLE_BASE := android-sprint-us
@@ -74,7 +72,6 @@ PRODUCT_PACKAGES += \
 # Additional packages
 PRODUCT_PACKAGES += \
     GooManager \
-    PopNetwork
 
 # idc files
 PRODUCT_COPY_FILES += \
@@ -110,6 +107,7 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
+#eventually try to build kernel inline
 # Kernel modules
 PRODUCT_COPY_FILES += \
     device/htc/primoc/prebuilt/modules/bcmdhd.ko:system/lib/modules/bcmdhd.ko \
@@ -134,6 +132,6 @@ $(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Goo updater app
 PRODUCT_PROPERTY_OVERRIDES += \
-ro.goo.developerid=jmz \
+ro.goo.developerid=simonsimons34 \
 ro.goo.rom=cm9primoc \
-ro.goo.version=6
+ro.goo.version=1
