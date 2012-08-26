@@ -58,6 +58,7 @@ TARGET_QCOM_HDMI_OUT := false
 TARGET_USES_OVERLAY := false
 TARGET_COMPOSITION_BYPASS := true
 TARGET_NO_BYPASS_CROPPING := true
+TARGET_USES_C2D_COMPOSITION := true
 
 # Wifi related defines
 WIFI_BAND                        := 802_11_ABG

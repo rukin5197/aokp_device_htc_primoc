@@ -69,6 +69,14 @@ PRODUCT_PACKAGES += \
     lights.primoc \
     sensors.primoc
 
+# bluetooth config file
+PRODUCT_COPY_FILES += \
+    system/bluetooth/data/main.conf:system/etc/bluetooth/main.conf
+
+# bluetooth audio
+PRODUCT_PACKAGES += \
+  audio.a2dp.default 
+
 # idc files
 PRODUCT_COPY_FILES += \
     device/htc/primoc/prebuilt/usr/idc/himax-touchscreen.idc:system/usr/idc/himax-touchscreen.idc \
