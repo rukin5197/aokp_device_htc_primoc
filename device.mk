@@ -111,11 +111,6 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-#eventually try to build kernel inline
-# Kernel modules
-PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/modules/bcmdhd.ko:system/lib/modules/bcmdhd.ko \
-
 # stuff common to all HTC phones
 #$(call inherit-product, device/htc/common/common.mk)
 
