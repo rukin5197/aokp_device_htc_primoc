@@ -1,4 +1,4 @@
-# Copyright (C) 2009 The Android Open Source Project
+# Copyright (C) 2012 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,6 +32,10 @@ USE_CAMERA_STUB := true
 -include vendor/htc/primoc/BoardConfigVendor.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := primoc
+
+#build kernel from source
+TARGET_KERNEL_SOURCE := kernel/htc/msm7x30
+TARGET_KERNEL_CONFIG := primoc_defconfig
 
 BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=primoc no_console_suspend=1
 BOARD_KERNEL_BASE := 0x14300000
@@ -95,7 +99,6 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
 BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk1
-#BOARD_SDEXT_DEVICE := /dev/block/mmcblk1p2
 BOARD_USES_MMCUTILS := false
 BOARD_HAS_NO_MISC_PARTITION := false
 

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011 The CyanogenMod Project
+# Copyright (C) 2012 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -69,10 +69,6 @@ PRODUCT_PACKAGES += \
     lights.primoc \
     sensors.primoc
 
-# Additional packages
-PRODUCT_PACKAGES += \
-    GooManager \
-
 # idc files
 PRODUCT_COPY_FILES += \
     device/htc/primoc/prebuilt/usr/idc/himax-touchscreen.idc:system/usr/idc/himax-touchscreen.idc \
@@ -129,9 +125,3 @@ $(call inherit-product, device/htc/primoc/media_a1026.mk)
 $(call inherit-product, device/htc/primoc/media_htcaudio.mk)
 
 $(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
-
-# Goo updater app
-PRODUCT_PROPERTY_OVERRIDES += \
-ro.goo.developerid=simonsimons34 \
-ro.goo.rom=cm9primoc \
-ro.goo.version=1
