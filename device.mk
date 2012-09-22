@@ -104,8 +104,8 @@ PRODUCT_COPY_FILES += \
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/htc/primou/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    device/htc/primou/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf
+    device/htc/primoc/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    device/htc/primoc/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf
 
 # bluetooth config file
 PRODUCT_COPY_FILES += \
