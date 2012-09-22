@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2010 Diogo Ferreira <diogo@underdev.org>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #define LOG_TAG "lights"
 
 #include <cutils/log.h>
@@ -53,9 +37,6 @@ enum {
 	LED_BLANK,
 };
 
-/**
- * Aux method, write int to file
- */
 static int write_int (const char* path, int value) {
 	int fd;
 	static int already_warned = 0;
@@ -71,6 +52,7 @@ static int write_int (const char* path, int value) {
 
 	char buffer[20];
 	int bytes = snprintf(buffer, sizeof(buffer), "%d\n",value);
+        LOGV("write_int %s %d\n", path, value);
 	int written = write (fd, buffer, bytes);
 	close (fd);
 
@@ -99,11 +81,12 @@ static void set_speaker_light_locked (struct light_device_t *dev, struct light_s
 	int amber = (colorRGB >> 16)&0xFF;
 	int green = (colorRGB >> 8)&0xFF;
 
+
 	switch (state->flashMode) {
 		case LIGHT_FLASH_TIMED:
 			switch (color) {
 				case LED_AMBER:
-					write_int (AMBER_BLINK_FILE, 4);
+					write_int (AMBER_BLINK_FILE, 1);
 					write_int (GREEN_LED_FILE, 0);
 					break;
 				case LED_GREEN:
@@ -115,6 +98,8 @@ static void set_speaker_light_locked (struct light_device_t *dev, struct light_s
 					write_int (GREEN_BLINK_FILE, 0);
 					break;
 				default:
+					write_int (GREEN_BLINK_FILE, 0);
+					write_int (AMBER_LED_FILE, 0);
 					LOGE("set_led_state colorRGB=%08X, unknown color\n",
 							colorRGB);
 					break;
@@ -124,17 +109,59 @@ static void set_speaker_light_locked (struct light_device_t *dev, struct light_s
 			switch (color) {
 				case LED_AMBER:
 					write_int (AMBER_LED_FILE, 1);
+					write_int (AMBER_BLINK_FILE, 0);
 					write_int (GREEN_LED_FILE, 0);
+					write_int (GREEN_BLINK_FILE, 0);
 					break;
 				case LED_GREEN:
 					write_int (AMBER_LED_FILE, 0);
+					write_int (AMBER_BLINK_FILE, 0);
 					write_int (GREEN_LED_FILE, 1);
+					write_int (GREEN_BLINK_FILE, 0);
 					break;
 				case LED_BLANK:
 					write_int (AMBER_LED_FILE, 0);
+					write_int (AMBER_BLINK_FILE, 0);
 					write_int (GREEN_LED_FILE, 0);
+					write_int (GREEN_BLINK_FILE, 0);
+					break;
+				default:
+					// tread unknown color like green
+					write_int (AMBER_LED_FILE, 0);
+					write_int (GREEN_LED_FILE, 1);
+					LOGE("set_led_state colorRGB=%08X, unknown color\n",
+							colorRGB);
 					break;
 
+			}
+			break;
+		case LIGHT_FLASH_HARDWARE:
+			switch (color) {
+				case LED_AMBER:
+					write_int (AMBER_LED_FILE, 1);
+					write_int (AMBER_BLINK_FILE, 0);
+					write_int (GREEN_LED_FILE, 0);
+					write_int (GREEN_BLINK_FILE, 0);
+					break;
+				case LED_GREEN:
+					write_int (AMBER_LED_FILE, 0);
+					write_int (AMBER_BLINK_FILE, 0);
+					write_int (GREEN_LED_FILE, 1);
+					write_int (GREEN_BLINK_FILE, 0);
+					break;
+				case LED_BLANK:
+					write_int (AMBER_LED_FILE, 0);
+					write_int (AMBER_BLINK_FILE, 0);
+					write_int (GREEN_LED_FILE, 0);
+					write_int (GREEN_BLINK_FILE, 0);
+					break;
+				default:
+					// tread unknown color like green
+					write_int (AMBER_LED_FILE, 0);
+					write_int (GREEN_LED_FILE, 1);
+					LOGE("set_led_state colorRGB=%08X, unknown color\n",
+							colorRGB);
+					break;
 			}
 			break;
 		default:
@@ -153,11 +180,11 @@ static void set_speaker_light_locked_dual (struct light_device_t *dev, struct li
 	if ((bcolorRGB >> 16)&0xFF) bcolor = LED_AMBER;
 
 	if (bcolor == LED_AMBER) {
-		write_int (GREEN_LED_FILE, 1);
-		write_int (AMBER_BLINK_FILE, 4);
+		write_int (AMBER_LED_FILE, 1);
+		write_int (AMBER_BLINK_FILE, 1);
 	} else if (bcolor == LED_GREEN) {
 		write_int (GREEN_LED_FILE, 1);
-		write_int (AMBER_BLINK_FILE, 1);
+		write_int (GREEN_BLINK_FILE, 1);
 	} else {
 		LOGE("set_led_state (dual) unexpected color: bcolorRGB=%08x\n", bcolorRGB);
 	}
@@ -177,6 +204,7 @@ static void handle_speaker_battery_locked (struct light_device_t *dev) {
 
 static int set_light_buttons (struct light_device_t* dev,
 		struct light_state_t const* state) {
+	LOGV("set_light_buttons");
 	int err = 0;
 	int on = is_lit (state);
 	pthread_mutex_lock (&g_lock);
@@ -196,6 +224,7 @@ static int rgb_to_brightness(struct light_state_t const* state)
 
 static int set_light_backlight(struct light_device_t* dev,
 		struct light_state_t const* state) {
+	LOGV("set_light_backlight");
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
 	LOGV("%s brightness=%d color=0x%08x",
@@ -209,6 +238,7 @@ static int set_light_backlight(struct light_device_t* dev,
 
 static int set_light_battery (struct light_device_t* dev,
 		struct light_state_t const* state) {
+	LOGV("set_light_battery");
 	pthread_mutex_lock (&g_lock);
 	g_battery = *state;
 	handle_speaker_battery_locked(dev);
@@ -219,12 +249,13 @@ static int set_light_battery (struct light_device_t* dev,
 
 static int set_light_attention (struct light_device_t* dev,
 		struct light_state_t const* state) {
-	/* bravo has no attention, bad bravo */
-
+	LOGV("Attention is not supported!");
 	return 0;
 }
+
 static int set_light_notifications (struct light_device_t* dev,
 		struct light_state_t const* state) {
+	LOGV("Led Notification being set");
 	pthread_mutex_lock (&g_lock);
 	g_notification = *state;
 	handle_speaker_battery_locked (dev);
@@ -236,8 +267,8 @@ static int set_light_notifications (struct light_device_t* dev,
 static int close_lights (struct light_device_t *dev) {
 	if (dev)
 		free (dev);
-
 	return 0;
+	LOGV("Closed lights");
 }
 
 
@@ -290,7 +321,7 @@ const struct hw_module_t HAL_MODULE_INFO_SYM = {
 	.version_major = 1,
 	.version_minor = 0,
 	.id = LIGHTS_HARDWARE_MODULE_ID,
-	.name = "Bravo lights module",
-	.author = "Diogo Ferreira <diogo@underdev.org>",
+	.name = "Primo lights",
+	.author = "Simon Sickle <simon@simonsickle.com>",
 	.methods = &lights_module_methods,
 };
