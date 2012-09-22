@@ -40,7 +40,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.gmsversion=2.3_r3 \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y \
-    ro.sf.lcd_density=220
+    ro.sf.lcd_density=240
 	
 # Carrier Info
 CDMA_GOOGLE_BASE := android-sprint-us
@@ -69,13 +69,17 @@ PRODUCT_PACKAGES += \
     lights.primoc \
     sensors.primoc
 
-# bluetooth config file
-PRODUCT_COPY_FILES += \
-    system/bluetooth/data/main.conf:system/etc/bluetooth/main.conf
-
-# bluetooth audio
+# audio
 PRODUCT_PACKAGES += \
   audio.a2dp.default 
+
+# video
+PRODUCT_PACKAGES += \
+  libI420colorconvert
+
+# Additional packages
+PRODUCT_PACKAGES += \
+    FileExplorer
 
 # idc files
 PRODUCT_COPY_FILES += \
@@ -100,7 +104,12 @@ PRODUCT_COPY_FILES += \
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml	
+    device/htc/primou/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    device/htc/primou/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf
+
+# bluetooth config file
+PRODUCT_COPY_FILES += \
+    system/bluetooth/data/main.conf:system/etc/bluetooth/main.conf 
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/htc/primoc/prebuilt/root/kernel
