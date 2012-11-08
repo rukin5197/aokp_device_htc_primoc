@@ -64,6 +64,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=20
 
 DEVICE_PACKAGE_OVERLAYS += device/htc/primoc/overlay
+DEVICE_PACKAGE_OVERLAYS += vendor/aokp/overlay/primoc
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
@@ -126,3 +127,11 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 PRODUCT_NAME := htc_primoc
 PRODUCT_DEVICE := primoc
 PRODUCT_MODEL := Full Android on PrimoC
+
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_VERSION_TAGS=release-keys USER=android-build BUILD_UTC_DATE=$(shell date +"%s")
+DATE = $(shell vendor/aokp/tools/getdate)
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.goo.developerid=gannon5197 \
+    ro.goo.rom=aokp_$(TARGET_PRODUCT) \
+    ro.goo.version=$(shell date +%s)
