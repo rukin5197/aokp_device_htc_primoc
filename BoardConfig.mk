@@ -23,6 +23,7 @@
 # WARNING: This line must come *before* including the proprietary
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
+
 USE_CAMERA_STUB := true
 
 # inherit from common msm7x30
@@ -58,7 +59,8 @@ ARCH_ARM_HAVE_NEON := true
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 DYNAMIC_SHARED_LIBV8SO := true
-TARGET_USES_PMEM := true
+TARGET_USES_ION := true
+BOARD_HAVE_OLD_ION_API := true
 
 # Wifi related defines
 WIFI_BAND                        := 802_11_ABG
@@ -101,7 +103,7 @@ BOARD_FLASH_BLOCK_SIZE := 262144
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
 
-TARGET_KERNEL_SOURCE := kernel/htc/primoc
+TARGET_KERNEL_SOURCE := kernel/htc/primoc-ion
 TARGET_KERNEL_CONFIG := primoc_defconfig
 TARGET_PREBUILT_KERNEL := device/htc/primoc/prebuilt/root/kernel
 BUILD_KERNEL := true
