@@ -70,6 +70,10 @@ DEVICE_PACKAGE_OVERLAYS += device/htc/primoc/overlay
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
 
+# Camera
+PRODUCT_PACKAGES += \
+    Camera
+
 # GPS / Lights / Sensors
 PRODUCT_PACKAGES += \
     libbt-vendor \

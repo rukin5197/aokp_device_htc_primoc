@@ -24,9 +24,6 @@
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
 
-PRODUCT_PACKAGES := \
-    Camera
-
 USE_CAMERA_STUB := true
 
 # inherit from common msm7x30
