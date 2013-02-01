@@ -115,9 +115,6 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330
 PRODUCT_COPY_FILES += \
     device/htc/primoc/prebuilt/etc/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
 
-# Kernel modules
-#PRODUCT_COPY_FILES += \
-
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/htc/primoc/prebuilt/root/kernel
 else
