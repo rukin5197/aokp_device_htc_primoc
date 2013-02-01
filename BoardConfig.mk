@@ -110,6 +110,7 @@ TARGET_KERNEL_SOURCE := kernel/htc/primoc
 TARGET_KERNEL_CONFIG := primoc_defconfig
 TARGET_PREBUILT_KERNEL := device/htc/primoc/prebuilt/root/kernel
 BUILD_KERNEL := true
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 
 # File System
 BOARD_HAS_LARGE_FILESYSTEM := true
