@@ -137,5 +137,5 @@ PRODUCT_MODEL := Full Android on PrimoC
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.goo.developerid=gannon5197 \
-    ro.goo.rom=aokp_$(TARGET_PRODUCT)-ion \
+    ro.goo.rom=aokp4.2_$(TARGET_PRODUCT)-ion \
     ro.goo.version=$(shell date +%s)
