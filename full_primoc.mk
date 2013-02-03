@@ -111,9 +111,16 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 
+# Kernel Modules
+PRODUCT_COPY_FILES += \
+    device/htc/primoc/prebuilt/modules/cpaccess.ko:system/lib/modules/cpaccess.ko \
+    device/htc/primoc/prebuilt/modules/dma_test.ko:system/lib/modules/dma_test.ko \
+    device/htc/primoc/prebuilt/modules/reset_modem.ko:system/lib/modules/reset_modem.ko \
+    device/htc/primoc/prebuilt/modules/bcmdhd.ko:system/lib/modules/bcmdhd.ko
+
 # BT vendor configuration
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/etc/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
+    device/htc/primoc/prebuilt/etc/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/htc/primoc/prebuilt/root/kernel
