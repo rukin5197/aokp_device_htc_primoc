@@ -17,6 +17,9 @@
 # common msm7x30 configs
 $(call inherit-product, device/htc/msm7x30-common/msm7x30.mk)
 
+# Inherit qcom proprietary blobs
+$(call inherit-product, vendor/qcom/proprietary/qcom-vendor.mk)
+
 # The gps config appropriate for this device
 
 PRODUCT_COPY_FILES += \
