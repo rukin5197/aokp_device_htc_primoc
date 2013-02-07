@@ -27,6 +27,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/primoc/ramdisk/init.primoc.rc:root/init.primoc.rc \
     device/htc/primoc/ramdisk/ueventd.primoc.rc:root/ueventd.primoc.rc \
+    device/htc/primoc/ramdisk/init.primoc.usb.rc:root/init.primoc.usb.rc \
     device/htc/primoc/ramdisk/fstab.primoc:root/fstab.primoc
 
 ## (2) Also get non-open-source GSM-specific aspects if available
@@ -76,6 +77,14 @@ PRODUCT_PACKAGES += \
     lights.primoc \
     sensors.primoc
 
+# CFX Packages
+PRODUCT_PACKAGES += \
+    Torch \
+    make_ext4fs \
+    FileManager \
+    e2fsck \
+    setup_fs
+
 # Input device config
 PRODUCT_COPY_FILES += \
     device/htc/primoc/idc/himax-touchscreen.idc:system/usr/idc/himax-touchscreen.idc \
@@ -107,8 +116,8 @@ $(call inherit-product, vendor/qcom/proprietary/qcom-vendor.mk)
 
 # Media Profiles
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/configs/media_profiles.xml:system/etc/media_profiles.xml
-
+    device/htc/primoc/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    device/htc/primoc/configs/media_codecs.xml:system/etc/media_codecs.xml
 # ACDB
 PRODUCT_COPY_FILES += \
     device/htc/ace/configs/default.acdb:system/etc/firmware/default.acdb \
@@ -126,7 +135,14 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330
 
 # BCM4330 firmware
 PRODUCT_COPY_FILES += \
-    device/htc/primoc/firmware/bcm4330.hcd:system/vendor/firmware/bcm4330.hcd \
+    device/htc/primoc/firmware/bcm4330.hcd:system/etc/firmware/bcm4330.hcd \
+    device/htc/primoc/firmware/fw_bcm4330_apsta_b1.bin:system/etc/firmware/fw_bcm4330_apsta_b1.bin \
+    device/htc/primoc/firmware/fw_bcm4330_apsta_b2.bin:system/etc/firmware/fw_bcm4330_apsta_b2.bin \
+    device/htc/primoc/firmware/fw_bcm4330_b2.bin:system/etc/firmware/fw_bcm4330_b2.bin \
+    device/htc/primoc/firmware/fw_bcm4330_b1.bin:system/etc/firmware/fw_bcm4330_b1.bin \
+    device/htc/primoc/firmware/fw_bcm4330_p2p_b2.bin:system/etc/firmware/fw_bcm4330_p2p_b2.bin \
+    device/htc/primoc/firmware/fw_bcm4330_p2p_b1.bin:system/etc/firmware/fw_bcm4330_p2p_b1.bin \
+    device/htc/primoc/firmware/calibration:system/etc/calibration
 
 # BT vendor configuration
 PRODUCT_COPY_FILES += \
@@ -138,10 +154,6 @@ PRODUCT_COPY_FILES += device/htc/primoc/configs/AudioBTID.csv:system/etc/AudioBT
 # Kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)
         LOCAL_KERNEL := device/htc/primoc/prebuilt/kernel/kernel
-
-# Kernel modules
-PRODUCT_COPY_FILES += \
-    device/htc/primoc/prebuilt/kernel/bcmdhd.ko:system/lib/modules/bcmdhd.ko 
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel

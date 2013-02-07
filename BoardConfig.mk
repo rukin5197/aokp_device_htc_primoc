@@ -44,9 +44,6 @@ TARGET_PROVIDES_LIBLIGHTS := true
 
 TARGET_NO_HW_VSYNC := true
 
-# Wifi related defines
-BOARD_WLAN_DEVICE_REV            := 4330
-
 # cat /proc/emmc
 #dev:        size     erasesize name
 #mmcblk0p17: 00040000 00000200 "misc"
@@ -68,7 +65,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
 
 TARGET_KERNEL_SOURCE := kernel/htc/primoc
 TARGET_KERNEL_CONFIG := primoc_defconfig
-TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
+#TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true

@@ -29,6 +29,7 @@
 /dev/gemini0              0660   system     system
 /dev/akm8975_daemon       0640   compass    system
 /dev/akm8975_aot          0640   compass    system
+/dev/bma150               0640   compass    system
 
 /dev/radio_feedback       0660   radio      radio
 /dev/smd*                 0640   radio      radio
@@ -60,4 +61,8 @@
 /dev/msm_wmapro           0660   system     audio
 /sys/devices/virtual/usb_composite/*   enable      0664  root   system
 
+# ion
 /dev/ion                  0664   system     system
+
+# rawchip
+/dev/rawchip0             0666   media      media

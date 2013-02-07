@@ -12,6 +12,7 @@ PRODUCT_COPY_FILES += \
     vendor/cm/prebuilt/common/bootanimation/480.zip:system/media/bootanimation.zip
 
 PRODUCT_NAME := cfx_primoc
+PRODUCT_RELEASE_NAME := primoc
 PRODUCT_BRAND := htc
 PRODUCT_DEVICE := primoc
 PRODUCT_MODEL := One V
