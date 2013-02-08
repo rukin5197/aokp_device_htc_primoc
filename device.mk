@@ -27,7 +27,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/primoc/ramdisk/init.primoc.rc:root/init.primoc.rc \
     device/htc/primoc/ramdisk/ueventd.primoc.rc:root/ueventd.primoc.rc \
-    device/htc/primoc/ramdisk/init.primoc.usb.rc:root/init.primoc.usb.rc \
     device/htc/primoc/ramdisk/fstab.primoc:root/fstab.primoc
 
 ## (2) Also get non-open-source GSM-specific aspects if available
