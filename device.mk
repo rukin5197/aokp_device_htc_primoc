@@ -27,7 +27,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/primoc/ramdisk/init.primoc.rc:root/init.primoc.rc \
     device/htc/primoc/ramdisk/ueventd.primoc.rc:root/ueventd.primoc.rc \
-    device/htc/primoc/ramdisk/init.primoc.usb.rc:root/init.primoc.usb.rc \
     device/htc/primoc/ramdisk/fstab.primoc:root/fstab.primoc
 
 ## (2) Also get non-open-source GSM-specific aspects if available
@@ -118,10 +117,11 @@ $(call inherit-product, vendor/qcom/proprietary/qcom-vendor.mk)
 PRODUCT_COPY_FILES += \
     device/htc/primoc/configs/media_profiles.xml:system/etc/media_profiles.xml \
     device/htc/primoc/configs/media_codecs.xml:system/etc/media_codecs.xml
+
 # ACDB
 PRODUCT_COPY_FILES += \
-    device/htc/ace/configs/default.acdb:system/etc/firmware/default.acdb \
-    device/htc/ace/configs/default_org.acdb:system/etc/firmware/default_org.acdb
+    device/htc/primoc/configs/default.acdb:system/etc/firmware/default.acdb \
+    device/htc/primoc/configs/default_org.acdb:system/etc/firmware/default_org.acdb
 
 # Audio DSP Profiles
 PRODUCT_COPY_FILES += \
