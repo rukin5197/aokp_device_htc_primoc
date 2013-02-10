@@ -121,8 +121,8 @@ PRODUCT_COPY_FILES += \
 
 # ACDB
 PRODUCT_COPY_FILES += \
-    device/htc/ace/configs/default.acdb:system/etc/firmware/default.acdb \
-    device/htc/ace/configs/default_org.acdb:system/etc/firmware/default_org.acdb
+    device/htc/primoc/configs/default.acdb:system/etc/firmware/default.acdb \
+    device/htc/primoc/configs/default_org.acdb:system/etc/firmware/default_org.acdb
 
 # Audio DSP Profiles
 PRODUCT_COPY_FILES += \
